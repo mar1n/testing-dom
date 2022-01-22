@@ -1,9 +1,13 @@
 const fs = require("fs");
-document.body.innerHTML = fs.readFileSync("index.html");
+const initialHtml = fs.readFileSync("index.html");
+
+beforeEach(() => {
+    document.body.innerHTML = initialHtml;
+})
 
 describe("input", () => {
     test("input exist in dom structure", () => {
         const inputList = document.getElementById("input-container");
-        expect(inputList.children).toHaveLength(2);
+        expect(inputList.childNodes).toHaveLength(2);
     })
 });
