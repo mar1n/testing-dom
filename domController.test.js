@@ -1,5 +1,9 @@
 const fs = require("fs");
 const initialHtml = fs.readFileSync("index.html");
+const { getByText } = require("@testing-library/dom")
+
+const addNewUser = require("./domController");
+
 
 beforeEach(() => {
     document.body.innerHTML = initialHtml;
@@ -36,4 +40,23 @@ describe("button", () => {
 
         expect(button.tagName).toBe("BUTTON");
     });
+});
+
+describe("add new user", () => {
+    const event = {
+        preventDefault: jest.fn(),
+        target: {
+            elements: {
+                name: { value: "Szymon" },
+                password: { value: "12345"}
+            }
+        }
+    };
+
+    addNewUser(event);
+
+    expect(event.preventDefault.mock.calls).toHaveLength(1);
+
+    const userMsg = document.getElementById("user-name-complete");
+    expect(getByText(userMsg, "Szymon created account")).toBeInTheDocument()
 });
