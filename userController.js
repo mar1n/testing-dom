@@ -5,10 +5,11 @@ function userRegister(userName, password) {
     state.users["userName"] = userName;
     state.users["password"] = password;
 
+    const inventoryList = window.document.getElementById("test");
     const confirmMsg = window.document.createElement('p');
     confirmMsg.id = "user-name-complete";
     confirmMsg.innerHTML = `${userName} created account`;
-    window.document.body.appendChild(confirmMsg);
+    inventoryList.appendChild(confirmMsg);
 
     return true;
   }
