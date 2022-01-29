@@ -15,7 +15,7 @@ test("adding items through the form", () => {
 
     const event = new Event("submit");
     const form = document.getElementById("input-container");
-    console.log('form innerHTML', form.innerHTML);
+
     form.dispatchEvent(event);
     
     const userMsg = document.getElementById("user-name-complete");
@@ -32,6 +32,6 @@ describe("validation of inputs", () => {
     inputEmail.dispatchEvent(event);
 
     const emialError = document.getElementById("error-email");
-    expect(getByText(emialError, "Email format is wrong!"));
+    expect(getByText(emialError, "szym0nd4widowicz@gmail.com is valid format."));
   });
 });

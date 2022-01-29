@@ -7,4 +7,21 @@ function addNewUser(event) {
     userRegister(email.value, password.value);
 }
 
-module.exports = { addNewUser }
+const validEMail = (email) => /^\w+@\w+[.]\w+$/.test(email);
+
+const handleAddEmail = (event) => {
+    const emailValue = event.target.value;
+
+    const errorMSg = window.document.getElementById("error-email");
+
+    if(emailValue === "") {
+        errorMSg.innerHTML = "";
+    } else if(!validEMail(emailValue)) {
+        errorMSg.innerHTML = "Emial is invalid!"
+    } else {
+        errorMSg.innerHTML = `${emailValue} is valid format.`
+    }
+
+}
+
+module.exports = { addNewUser, handleAddEmail }
