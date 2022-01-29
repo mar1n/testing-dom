@@ -1,6 +1,6 @@
 const fs = require("fs");
 const initialHtml = fs.readFileSync("./index.html");
-const { screen, getByText } = require("@testing-library/dom");
+const { screen, getByText, fireEvent } = require("@testing-library/dom");
 
 beforeEach(() => {
   document.body.innerHTML = initialHtml;
@@ -24,14 +24,42 @@ test("adding items through the form", () => {
 
 describe("validation of inputs", () => {
   test("valid email format", () => {
-    screen.getByPlaceholderText("email").value = "szym0nd4widowicz@gmail.com";
+    const emailField = screen.getByPlaceholderText("email");
 
-    const event = new Event("input");
-    const inputEmail = document.getElementById("email");
-
-    inputEmail.dispatchEvent(event);
+    fireEvent.input(emailField, {
+      target: {value: "szym0nd4widowicz@gmail.com"},
+      bubbles: true
+    });
 
     const emialError = document.getElementById("error-email");
     expect(getByText(emialError, "szym0nd4widowicz@gmail.com is valid format."));
   });
+  test("unvalid email format", () => {
+    const emailField = screen.getByPlaceholderText("email");
+
+    fireEvent.input(emailField, {
+      target: { value: "szym0nd4widowiczgmail.com"},
+      bubbles: true
+    });
+
+    const emialError = document.getElementById("error-email");
+    expect(getByText(emialError, "Email is invalid!"));
+  });
+  test("submit button is disabled", () => {
+    const emailField = screen.getByPlaceholderText("email");
+    const passwordField = screen.getByPlaceholderText("password");
+    const button = document.getElementById("submit-button");
+
+    fireEvent.input(emailField, {
+      target: { value: "szym0nd4widowicz@gmail.com"},
+      bubbles: true
+    });
+    fireEvent.input(passwordField, {
+      target: { value: "12345"},
+      bubbles: true
+    });
+
+    expect(button).toHaveProperty('disabled', false);
+  });
 });
+

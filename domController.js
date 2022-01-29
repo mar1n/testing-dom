@@ -17,7 +17,7 @@ const handleAddEmail = (event) => {
     if(emailValue === "") {
         errorMSg.innerHTML = "";
     } else if(!validEMail(emailValue)) {
-        errorMSg.innerHTML = "Emial is invalid!"
+        errorMSg.innerHTML = "Email is invalid!"
     } else {
         errorMSg.innerHTML = `${emailValue} is valid format.`
     }
