@@ -2,7 +2,7 @@ const fs = require("fs");
 const initialHtml = fs.readFileSync("index.html");
 const { getByText } = require("@testing-library/dom")
 
-const addNewUser = require("./domController");
+const { addNewUser } = require("./domController");
 
 
 beforeEach(() => {
@@ -47,7 +47,7 @@ describe("add new user", () => {
         preventDefault: jest.fn(),
         target: {
             elements: {
-                name: { value: "Szymon" },
+                email: { value: "Szymon" },
                 password: { value: "12345"}
             }
         }

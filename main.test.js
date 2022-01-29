@@ -20,4 +20,18 @@ test("adding items through the form", () => {
     
     const userMsg = document.getElementById("user-name-complete");
     expect(getByText(userMsg, "Szymon created account")).toBeInTheDocument();
-})
+});
+
+describe("validation of inputs", () => {
+  test("valid email format", () => {
+    screen.getByPlaceholderText("email").value = "szym0nd4widowicz@gmail.com";
+
+    const event = new Event("input");
+    const inputEmail = document.getElementById("email");
+
+    inputEmail.dispatchEvent(event);
+
+    const emialError = document.getElementById("error-email");
+    expect(getByText(emialError, "Email format is wrong!"));
+  });
+});
